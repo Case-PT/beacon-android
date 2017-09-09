@@ -7,12 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import com.google.android.gms.maps.model.MapStyleOptions;
+
+
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
@@ -102,10 +112,12 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(29.7604, -95.3698);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng marker_init = new LatLng(29.7604, -95.3698);
+        googleMap.addMarker(new MarkerOptions().position(marker_init)
+                .title("Marker in Houston"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker_init));
+
+        styleMap(googleMap);
 
         List<LatLng> latLngList = new ArrayList<>();
         latLngList.add(new LatLng(29.7604, -95.3698));
@@ -118,5 +130,23 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
                 .build();
         // Add a tile overlay to the map, using the heat map tile provider.
         googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatMapTileProvider));
+    }
+
+    public void styleMap(GoogleMap googleMap)
+    {
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this.getContext(), R.raw.style_json));
+
+            if (!success) {
+                Log.e(LOG_TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(LOG_TAG, "Can't find style. Error: ", e);
+        }
+
     }
 }
