@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -56,7 +55,8 @@ dependencies {
     compile project(':domain')
     compile project(':data')
 
-    apt presentationDependencies.daggerCompiler
+    compile "com.google.dagger:dagger:2.8"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
     compile presentationDependencies.appCompat
     compile presentationDependencies.dagger
     compile 'com.jakewharton:butterknife:8.8.1'
