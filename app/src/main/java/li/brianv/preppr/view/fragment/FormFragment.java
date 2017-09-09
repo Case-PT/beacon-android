@@ -102,7 +102,7 @@ public class FormFragment extends BaseFragment implements FormView {
         final View fragmentView = inflater.inflate(R.layout.fragment_form, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-        setupEditTextUpdaters();
+//        setupEditTextUpdaters();
         return fragmentView;
     }
 
