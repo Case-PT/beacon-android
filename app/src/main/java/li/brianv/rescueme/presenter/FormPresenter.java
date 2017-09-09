@@ -19,6 +19,8 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import li.brianv.domain.Form;
+import li.brianv.domain.interactor.DefaultObserver;
 import li.brianv.domain.interactor.SubmitForm;
 import li.brianv.rescueme.di.PerActivity;
 import li.brianv.rescueme.util.Log;
@@ -86,22 +88,25 @@ public class FormPresenter implements Presenter {
     }
 
     public void onFabPress() {
-        Log.d(LOG_TAG, "On fab press");
         if (fieldsFilled) {
             submitData();
-            formView.hideConfirmFAB();
-            formView.displaySuccess();
-            formView.hideForm();
         } else {
-            if (formView.formIsShowing())
+            if (formView.formIsShowing()) {
                 formView.hideForm();
-            else
+                formView.showCancelFAB();
+            } else {
                 formView.showForm();
+                formView.showConfirmFAB();
+            }
         }
     }
 
     private void submitData() {
-
+        submitForm.execute(new SubmitFormObserver(),
+                SubmitForm.Params.forForm(new Form(reporterName,
+                        reporterNumber, reporterEmail,
+                        reportedName, reportedNumber,
+                        reportedEmail, reportedAddress)));
     }
 
     private void onFieldUpdated() {
@@ -111,7 +116,7 @@ public class FormPresenter implements Presenter {
             formView.showConfirmFAB();
             fieldsFilled = true;
         } else {
-            formView.hideConfirmFAB();
+            formView.showCancelFAB();
             fieldsFilled = false;
         }
     }
@@ -130,9 +135,31 @@ public class FormPresenter implements Presenter {
 
     @Override
     public void destroy() {
-//        this.getUserDetailsUseCase.dispose();
+        this.submitForm.dispose();
         this.formView = null;
     }
 
+    private class SubmitFormObserver extends DefaultObserver<Object> {
+        @Override
+        public void onNext(Object o) {
+            Log.d(LOG_TAG, o.toString());
+        }
 
+        @Override
+        public void onComplete() {
+            completeForm();
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            completeForm();
+        }
+
+        private void completeForm() {
+            formView.clearForm();
+            formView.displaySuccess();
+            formView.hideForm();
+            formView.showAddFAB();
+        }
+    }
 }

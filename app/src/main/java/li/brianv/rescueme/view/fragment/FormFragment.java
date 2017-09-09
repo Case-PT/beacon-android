@@ -19,6 +19,7 @@ import butterknife.Unbinder;
 import li.brianv.rescueme.R;
 import li.brianv.rescueme.di.components.MainComponent;
 import li.brianv.rescueme.presenter.FormPresenter;
+import li.brianv.rescueme.util.Log;
 import li.brianv.rescueme.util.UIUtil;
 import li.brianv.rescueme.view.DefaultTextWatcher;
 import li.brianv.rescueme.view.FormView;
@@ -97,7 +98,7 @@ public class FormFragment extends BaseFragment implements FormView {
         final View fragmentView = inflater.inflate(R.layout.fragment_form, container, false);
         unbinder = ButterKnife.bind(this, fragmentView);
 
-//        setupEditTextUpdaters();
+        setupEditTextUpdaters();
         return fragmentView;
     }
 
@@ -155,29 +156,48 @@ public class FormFragment extends BaseFragment implements FormView {
 
     @Override
     public void showConfirmFAB() {
+        Log.d(LOG_TAG, "Confirm FAB");
         fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.materialGreen)));
         fab.setImageResource(R.drawable.ic_check_white_24dp);
         fab.setRotation(0);
     }
 
     @Override
-    public void hideConfirmFAB() {
+    public void showCancelFAB() {
+        Log.d(LOG_TAG, "Cancel FAB");
         fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.colorAccent)));
         fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setRotation(45);
     }
 
     @Override
+    public void showAddFAB() {
+        Log.d(LOG_TAG, "Add FAB");
+        fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.colorAccent)));
+        fab.setImageResource(R.drawable.ic_add_white_24dp);
+        fab.setRotation(0);
+    }
+
+    @Override
     public void showForm() {
         form.setVisibility(View.VISIBLE);
-        fab.setRotation(45);
     }
 
     @Override
     public void hideForm() {
         form.setVisibility(View.GONE);
-        fab.setRotation(0);
         UIUtil.hideKeyboardFrom(getContext(), form);
+    }
+
+    @Override
+    public void clearForm() {
+        reporterName.getText().clear();
+        reporterNumber.getText().clear();
+        reporterEmail.getText().clear();
+        reportedName.getText().clear();
+        reportedNumber.getText().clear();
+        reportedEmail.getText().clear();
+        reportedAddress.getText().clear();
     }
 
     @Override
@@ -188,5 +208,10 @@ public class FormFragment extends BaseFragment implements FormView {
     @Override
     public void displaySuccess() {
         showToastMessage("Form submitted");
+    }
+
+    @Override
+    public void displaySubmitFormFailure() {
+        showToastMessage("Error submitting form");
     }
 }

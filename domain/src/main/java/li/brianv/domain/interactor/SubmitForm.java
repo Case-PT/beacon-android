@@ -8,7 +8,7 @@ import li.brianv.domain.executor.PostExecutionThread;
 import li.brianv.domain.executor.ThreadExecutor;
 import li.brianv.domain.repository.FormRepository;
 
-public class SubmitForm extends UseCase<Void, SubmitForm.Params> {
+public class SubmitForm extends UseCase<Object, SubmitForm.Params> {
 
     private final FormRepository formRepository;
 
@@ -19,7 +19,7 @@ public class SubmitForm extends UseCase<Void, SubmitForm.Params> {
     }
 
     @Override
-    Observable<Void> buildUseCaseObservable(Params params) {
+    Observable<Object> buildUseCaseObservable(Params params) {
         return formRepository.submitForm(params.form);
     }
 

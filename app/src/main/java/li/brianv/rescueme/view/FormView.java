@@ -5,13 +5,19 @@ public interface FormView {
 
     void showConfirmFAB();
 
-    void hideConfirmFAB();
+    void showCancelFAB();
+
+    void showAddFAB();
 
     void showForm();
 
     void hideForm();
 
+    void clearForm();
+
     boolean formIsShowing();
 
     void displaySuccess();
+
+    void displaySubmitFormFailure();
 }

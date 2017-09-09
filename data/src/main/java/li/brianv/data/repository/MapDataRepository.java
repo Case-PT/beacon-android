@@ -1,6 +1,8 @@
 package li.brianv.data.repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -17,6 +19,11 @@ public class MapDataRepository implements MapRepository {
 
     @Override
     public Observable<List<Location>> rescueLocations() {
-        return null;
+        return Observable.interval(500, TimeUnit.MILLISECONDS)
+                .map(intVal -> {
+                    List<Location> list = new ArrayList<>();
+                    list.add(new Location(29.6604 + Math.random(), -95.3698 + Math.random()));
+                    return list;
+                });
     }
 }

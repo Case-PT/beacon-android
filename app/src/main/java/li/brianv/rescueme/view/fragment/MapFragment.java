@@ -1,28 +1,21 @@
 package li.brianv.rescueme.view.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.google.android.gms.maps.model.MapStyleOptions;
-
-
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.maps.model.TileProvider;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
@@ -44,6 +37,9 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
 
     @Inject
     MapPresenter mapPresenter;
+
+    private GoogleMap googleMap;
+    private List<LatLng> rescueLocations;
 
     private Unbinder unbinder;
 
@@ -71,8 +67,6 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
         mapPresenter.destroy();
     }
 
-    private SupportMapFragment supportMapFragment;
-
     public MapFragment() {
         setRetainInstance(true);
     }
@@ -95,8 +89,12 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initMap();
+    }
+
+    private void initMap() {
         FragmentManager fm = getActivity().getSupportFragmentManager();/// getChildFragmentManager();
-        supportMapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) fm.findFragmentById(R.id.map_container);
         if (supportMapFragment == null) {
             supportMapFragment = SupportMapFragment.newInstance();
             fm.beginTransaction().replace(R.id.map_container, supportMapFragment).commit();
@@ -112,28 +110,20 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng marker_init = new LatLng(29.7604, -95.3698);
-        googleMap.addMarker(new MarkerOptions().position(marker_init)
-                .title("Marker in Houston"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker_init));
+        this.googleMap = googleMap;
 
-        styleMap(googleMap);
-
-        List<LatLng> latLngList = new ArrayList<>();
-        latLngList.add(new LatLng(29.7604, -95.3698));
-        latLngList.add(new LatLng(29.8604, -95.3698));
-        latLngList.add(new LatLng(29.8603, -95.3698));
-        latLngList.add(new LatLng(29.8602, -95.3698));
-        latLngList.add(new LatLng(29.6604, -95.3698));
-        TileProvider heatMapTileProvider = new HeatmapTileProvider.Builder()
-                .data(latLngList)
-                .build();
-        // Add a tile overlay to the map, using the heat map tile provider.
-        googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatMapTileProvider));
+        LatLng houston = new LatLng(29.7604, -95.3698);
+        addMarker(houston, "Marker in Houston");
+        styleMap();
     }
 
-    public void styleMap(GoogleMap googleMap)
-    {
+    private void addMarker(LatLng markerPosition, String title) {
+        googleMap.addMarker(new MarkerOptions().position(markerPosition)
+                .title(title));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(markerPosition));
+    }
+
+    private void styleMap() {
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -147,6 +137,18 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
         } catch (Resources.NotFoundException e) {
             Log.e(LOG_TAG, "Can't find style. Error: ", e);
         }
+    }
 
+    @Override
+    public void updateHeatMap(LatLng rescueLocation) {
+        if (rescueLocations == null)
+            rescueLocations = new ArrayList<>();
+        rescueLocations.add(rescueLocation);
+        TileProvider heatMapTileProvider = new HeatmapTileProvider.Builder()
+                .data(rescueLocations)
+                .build();
+        // Add a tile overlay to the map, using the heat map tile provider.
+        if (googleMap != null)
+            googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatMapTileProvider));
     }
 }
