@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Rescue Me</string>
+    <string name="form_name">Full Name</string>
+    <string name="form_number">Phone #</string>
+    <string name="form_email">Email Address</string>
+    <string name="form_address">Last known address</string>
+</resources>
