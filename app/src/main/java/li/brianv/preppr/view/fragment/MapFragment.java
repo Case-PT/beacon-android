@@ -112,10 +112,10 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(29.7604, -95.3698);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng marker_init = new LatLng(29.7604, -95.3698);
+        googleMap.addMarker(new MarkerOptions().position(marker_init)
+                .title("Marker in Houston"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(marker_init));
 
         styleMap(googleMap);
 
