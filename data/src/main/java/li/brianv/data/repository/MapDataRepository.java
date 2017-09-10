@@ -19,7 +19,7 @@ public class MapDataRepository implements MapRepository {
 
     @Override
     public Observable<List<Location>> rescueLocations() {
-        return Observable.interval(500, TimeUnit.MILLISECONDS)
+        return Observable.interval(5000, TimeUnit.MILLISECONDS)
                 .map(intVal -> {
                     List<Location> list = new ArrayList<>();
                     list.add(new Location(29.6604 + Math.random(), -95.3698 + Math.random()));

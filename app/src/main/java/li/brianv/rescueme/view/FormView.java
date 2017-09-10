@@ -5,6 +5,8 @@ public interface FormView {
 
     void showConfirmFAB();
 
+    void hideConfirmFAB();
+
     void showCancelFAB();
 
     void showAddFAB();

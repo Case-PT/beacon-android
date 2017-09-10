@@ -88,20 +88,21 @@ public class FormPresenter implements Presenter {
     }
 
     public void onFabPress() {
-        if (fieldsFilled) {
-            submitData();
+        if (formView.formIsShowing()) {
+            formView.hideForm();
+            formView.hideConfirmFAB();
+            formView.showAddFAB();
         } else {
-            if (formView.formIsShowing()) {
-                formView.hideForm();
-                formView.showCancelFAB();
-            } else {
-                formView.showForm();
+            if (fieldsFilled){
                 formView.showConfirmFAB();
             }
+            formView.showForm();
+            formView.showCancelFAB();
         }
+
     }
 
-    private void submitData() {
+    public void onConfirmPress() {
         submitForm.execute(new SubmitFormObserver(),
                 SubmitForm.Params.forForm(new Form(reporterName,
                         reporterNumber, reporterEmail,
@@ -116,7 +117,7 @@ public class FormPresenter implements Presenter {
             formView.showConfirmFAB();
             fieldsFilled = true;
         } else {
-            formView.showCancelFAB();
+            formView.hideConfirmFAB();
             fieldsFilled = false;
         }
     }

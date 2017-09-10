@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class FormFragment extends BaseFragment implements FormView {
     FormPresenter formPresenter;
 
     @BindView(R.id.form)
-    LinearLayout form;
+    FrameLayout form;
 
     @BindView(R.id.reporterName)
     EditText reporterName;
@@ -50,6 +51,8 @@ public class FormFragment extends BaseFragment implements FormView {
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.confirmFab)
+    FloatingActionButton confirmFab;
 
     private Unbinder unbinder;
 
@@ -57,6 +60,8 @@ public class FormFragment extends BaseFragment implements FormView {
     public void fabPress() {
         formPresenter.onFabPress();
     }
+    @OnClick(R.id.confirmFab)
+    public void confirmPress() { formPresenter.onConfirmPress();}
 
     @Override
     public void onResume() {
@@ -157,24 +162,23 @@ public class FormFragment extends BaseFragment implements FormView {
     @Override
     public void showConfirmFAB() {
         Log.d(LOG_TAG, "Confirm FAB");
-        fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.materialGreen)));
-        fab.setImageResource(R.drawable.ic_check_white_24dp);
-        fab.setRotation(0);
+        confirmFab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideConfirmFAB() {
+        confirmFab.setVisibility(View.GONE);
     }
 
     @Override
     public void showCancelFAB() {
         Log.d(LOG_TAG, "Cancel FAB");
-        fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.colorAccent)));
-        fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setRotation(45);
     }
 
     @Override
     public void showAddFAB() {
         Log.d(LOG_TAG, "Add FAB");
-        fab.setBackgroundTintList(ColorStateList.valueOf(getContext().getColor(R.color.colorAccent)));
-        fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setRotation(0);
     }
 
