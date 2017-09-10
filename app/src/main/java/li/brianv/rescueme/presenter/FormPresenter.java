@@ -42,6 +42,8 @@ public class FormPresenter implements Presenter {
     private String reportedNumber = "";
     private String reportedEmail = "";
     private String reportedAddress = "";
+    private String reportedCity = "";
+    private String reportedState = "";
 
     private boolean fieldsFilled = false;
 
@@ -87,13 +89,23 @@ public class FormPresenter implements Presenter {
         onFieldUpdated();
     }
 
+    public void updateReportedCity(String reportedCity) {
+        this.reportedCity = reportedCity;
+        onFieldUpdated();
+    }
+
+    public void updateReportedState(String reportedState) {
+        this.reportedState = reportedState;
+        onFieldUpdated();
+    }
+
     public void onFabPress() {
         if (formView.formIsShowing()) {
             formView.hideForm();
             formView.hideConfirmFAB();
             formView.showAddFAB();
         } else {
-            if (fieldsFilled){
+            if (fieldsFilled) {
                 formView.showConfirmFAB();
             }
             formView.showForm();
@@ -107,13 +119,13 @@ public class FormPresenter implements Presenter {
                 SubmitForm.Params.forForm(new Form(reporterName,
                         reporterNumber, reporterEmail,
                         reportedName, reportedNumber,
-                        reportedEmail, reportedAddress)));
+                        reportedEmail, reportedAddress + " " + reportedCity + " " + reportedState)));
     }
 
     private void onFieldUpdated() {
         if (!reporterName.isEmpty() && !reporterEmail.isEmpty() && !reporterNumber.isEmpty()
                 && !reportedName.isEmpty() && !reportedEmail.isEmpty() && !reportedNumber.isEmpty()
-                && !reportedAddress.isEmpty()) {
+                && !reportedAddress.isEmpty() && !reportedCity.isEmpty() && !reportedState.isEmpty()) {
             formView.showConfirmFAB();
             fieldsFilled = true;
         } else {

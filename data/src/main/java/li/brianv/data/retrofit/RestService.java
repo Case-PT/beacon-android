@@ -1,11 +1,18 @@
 package li.brianv.data.retrofit;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import li.brianv.domain.Form;
+import li.brianv.domain.Location;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RestService {
-    @POST("add_report")
+    @POST("manual_report")
     Observable<Object> submitForm(@Body Form form);
+
+    @GET("rescue_locations")
+    Observable<List<Location>> rescueLocations();
 }

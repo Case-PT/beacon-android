@@ -45,9 +45,9 @@ public class MapPresenter implements Presenter {
     private class RescueLocationObserver extends DefaultObserver<List<Location>> {
         @Override
         public void onNext(List<Location> locations) {
-            Stream.of(locations)
+            mapView.updateHeatMap(Stream.of(locations)
                     .map(LatLngMapper::getLatLang)
-                    .forEach(location -> mapView.updateHeatMap(location));
+                    .toList());
         }
     }
 }

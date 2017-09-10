@@ -1,6 +1,7 @@
 package li.brianv.rescueme.view.fragment;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -16,8 +17,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
-import com.google.android.gms.maps.model.TileProvider;
+import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import java.util.ArrayList;
@@ -40,7 +42,8 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
 
     private GoogleMap googleMap;
     private List<LatLng> rescueLocations;
-
+    private TileOverlay heatMapOverlay;
+    private HeatmapTileProvider heatMapTileProvider;
     private Unbinder unbinder;
 
     @Override
@@ -139,16 +142,36 @@ public class MapFragment extends BaseFragment implements MapView, OnMapReadyCall
         }
     }
 
-    @Override
-    public void updateHeatMap(LatLng rescueLocation) {
-        if (rescueLocations == null)
-            rescueLocations = new ArrayList<>();
-        rescueLocations.add(rescueLocation);
-        TileProvider heatMapTileProvider = new HeatmapTileProvider.Builder()
-                .data(rescueLocations)
+    private void initializeHeatMap(List<LatLng> latLngs) {
+        int[] colors = {
+                Color.rgb(102, 225, 0), // green
+                Color.rgb(255, 0, 0)    // red
+        };
+        float[] startPoints = {
+                0.2f, 1f
+        };
+        Gradient gradient = new Gradient(colors, startPoints);
+        heatMapTileProvider = new HeatmapTileProvider.Builder()
+                .gradient(gradient)
+                .data(latLngs)
                 .build();
         // Add a tile overlay to the map, using the heat map tile provider.
         if (googleMap != null)
-            googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatMapTileProvider));
+            heatMapOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(heatMapTileProvider));
+    }
+
+    @Override
+    public void updateHeatMap(List<LatLng> locations) {
+        if (this.rescueLocations == null) {
+            this.rescueLocations = new ArrayList<>();
+            this.rescueLocations.addAll(locations);
+            if (googleMap != null) {
+                initializeHeatMap(locations);
+            }
+        } else {
+            this.rescueLocations.addAll(locations);
+            heatMapTileProvider.setData(rescueLocations);
+//            heatMapOverlay.clearTileCache();
+        }
     }
 }

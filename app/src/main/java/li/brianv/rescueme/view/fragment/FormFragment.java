@@ -1,6 +1,5 @@
 package li.brianv.rescueme.view.fragment;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import javax.inject.Inject;
 
@@ -40,6 +38,7 @@ public class FormFragment extends BaseFragment implements FormView {
     EditText reporterNumber;
     @BindView(R.id.reporterEmail)
     EditText reporterEmail;
+
     @BindView(R.id.reportedName)
     EditText reportedName;
     @BindView(R.id.reportedNumber)
@@ -48,6 +47,10 @@ public class FormFragment extends BaseFragment implements FormView {
     EditText reportedEmail;
     @BindView(R.id.reportedAddress)
     EditText reportedAddress;
+    @BindView(R.id.reportedCity)
+    EditText reportedCity;
+    @BindView(R.id.reportedState)
+    EditText reportedState;
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -60,8 +63,11 @@ public class FormFragment extends BaseFragment implements FormView {
     public void fabPress() {
         formPresenter.onFabPress();
     }
+
     @OnClick(R.id.confirmFab)
-    public void confirmPress() { formPresenter.onConfirmPress();}
+    public void confirmPress() {
+        formPresenter.onConfirmPress();
+    }
 
     @Override
     public void onResume() {
@@ -157,6 +163,18 @@ public class FormFragment extends BaseFragment implements FormView {
                 formPresenter.updateReportedAddress(reportedAddress.getText().toString());
             }
         });
+        reportedCity.addTextChangedListener(new DefaultTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                formPresenter.updateReportedCity(reportedCity.getText().toString());
+            }
+        });
+        reportedState.addTextChangedListener(new DefaultTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                formPresenter.updateReportedState(reportedState.getText().toString());
+            }
+        });
     }
 
     @Override
@@ -202,6 +220,8 @@ public class FormFragment extends BaseFragment implements FormView {
         reportedNumber.getText().clear();
         reportedEmail.getText().clear();
         reportedAddress.getText().clear();
+        reportedCity.getText().clear();
+        reportedState.getText().clear();
     }
 
     @Override
