@@ -19,7 +19,7 @@ public class MapPresenter implements Presenter {
     private final GetRescueLocations getRescueLocations;
 
     @Inject
-    public MapPresenter(GetRescueLocations getRescueLocations) {
+    MapPresenter(GetRescueLocations getRescueLocations) {
         this.getRescueLocations = getRescueLocations;
     }
 

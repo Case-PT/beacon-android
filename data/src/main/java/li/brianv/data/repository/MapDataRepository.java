@@ -1,6 +1,7 @@
 package li.brianv.data.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -19,13 +20,29 @@ public class MapDataRepository implements MapRepository {
 
     @Override
     public Observable<List<Location>> rescueLocations() {
-        return Observable.interval(500, TimeUnit.MILLISECONDS)
+        return Observable.interval(2000, TimeUnit.MILLISECONDS)
                 .map(intVal -> {
-                    List<Location> list = new ArrayList<>();
-                    list.add(new Location(29.6604 + Math.random(), -95.3698 + Math.random()));
-                    list.add(new Location(28.5383 + Math.random(), -81.3792 + Math.random()));
-                    list.add(new Location(26.1224 + Math.random(), -80.1373 + Math.random()));
-                    return list;
+                    if(intVal < 100) {
+                        List<Location> list = new ArrayList<>();
+                        list.add(generateLocation(29.9604, -95.7698));
+                        list.add(generateLocation(28.5383, -81.3792));
+                        list.add(generateLocation(26.1524, -80.5373));
+                        return list;
+                    } else
+                        return Collections.emptyList();
                 });
+    }
+
+    private Location generateLocation(double lat, double lon) {
+        double latInc = Math.random();
+        double longInc = Math.random();
+        if (latInc < 0.5) {
+            latInc *= 0.3 * Math.random();
+        }
+        if (longInc > 0.5)
+            longInc *= 0.3 * Math.random();
+        lat -= latInc;
+        lon -= longInc;
+        return new Location(lat, lon);
     }
 }
