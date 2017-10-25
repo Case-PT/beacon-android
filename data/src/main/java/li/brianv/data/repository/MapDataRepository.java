@@ -27,7 +27,7 @@ public class MapDataRepository implements MapRepository {
                         list.add(generateLocation(29.9604, -95.7698));
                         list.add(generateLocation(28.5383, -81.3792));
                         list.add(generateLocation(26.1524, -80.5373));
-                        list.add(generateLocation(29.0299, 111.6962));
+                        list.add(generateLocation(29.0299, 111.6961));
                         return list;
                     } else
                         return Collections.emptyList();
