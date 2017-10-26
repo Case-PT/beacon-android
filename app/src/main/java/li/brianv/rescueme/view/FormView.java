@@ -22,4 +22,6 @@ public interface FormView {
     void displaySuccess();
 
     void displaySubmitFormFailure();
+
+    void displayMessage(String message);
 }

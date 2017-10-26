@@ -56,6 +56,8 @@ public class FormFragment extends BaseFragment implements FormView {
     FloatingActionButton fab;
     @BindView(R.id.confirmFab)
     FloatingActionButton confirmFab;
+    @BindView(R.id.testButton)
+    FloatingActionButton testButton;
 
     private Unbinder unbinder;
 
@@ -67,6 +69,11 @@ public class FormFragment extends BaseFragment implements FormView {
     @OnClick(R.id.confirmFab)
     public void confirmPress() {
         formPresenter.onConfirmPress();
+    }
+
+    @OnClick(R.id.testButton)
+    public void testButtonPress() {
+        displaySuccess();
     }
 
     @Override
@@ -237,5 +244,11 @@ public class FormFragment extends BaseFragment implements FormView {
     @Override
     public void displaySubmitFormFailure() {
         showToastMessage("Error submitting form");
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        showToastMessage(message);
+
     }
 }

@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import li.brianv.domain.Form;
 import li.brianv.domain.interactor.DefaultObserver;
+import li.brianv.domain.interactor.GetTestMessage;
 import li.brianv.domain.interactor.SubmitForm;
 import li.brianv.rescueme.di.PerActivity;
 import li.brianv.rescueme.util.Log;
@@ -48,10 +49,13 @@ public class FormPresenter implements Presenter {
     private boolean fieldsFilled = false;
 
     private final SubmitForm submitForm;
+    private final GetTestMessage getTestMessage;
+
 
     @Inject
-    FormPresenter(SubmitForm submitForm) {
+    FormPresenter(SubmitForm submitForm, GetTestMessage getTestMessage) {
         this.submitForm = submitForm;
+        this.getTestMessage = getTestMessage;
     }
 
     public void updateReporterName(String reporterName) {
@@ -122,6 +126,11 @@ public class FormPresenter implements Presenter {
                         reportedEmail, reportedAddress + " " + reportedCity + " " + reportedState)));
     }
 
+    public void onTestButtonPress(){
+        getTestMessage.execute(new TestObserver(), null);
+
+    }
+
     private void onFieldUpdated() {
         if (!reporterName.isEmpty() && !reporterEmail.isEmpty() && !reporterNumber.isEmpty()
                 && !reportedName.isEmpty() && !reportedEmail.isEmpty() && !reportedNumber.isEmpty()
@@ -173,6 +182,14 @@ public class FormPresenter implements Presenter {
             formView.displaySuccess();
             formView.hideForm();
             formView.showAddFAB();
+        }
+    }
+
+    public class TestObserver extends DefaultObserver<String>{
+        @Override
+        public void onNext(String s) {
+            formView.displayMessage(s);
+
         }
     }
 }

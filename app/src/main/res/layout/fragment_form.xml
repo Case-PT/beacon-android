@@ -227,5 +227,13 @@
             android:backgroundTint="@color/materialGreen"
             android:src="@drawable/ic_check_white_24dp"
             android:visibility="gone" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/testButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/materialGreen"
+            android:src="@drawable/ic_check_white_24dp" />
+
     </LinearLayout>
 </FrameLayout>
