@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -56,6 +57,15 @@ public class FormFragment extends BaseFragment implements FormView {
     FloatingActionButton fab;
     @BindView(R.id.confirmFab)
     FloatingActionButton confirmFab;
+    @BindView(R.id.test_button)
+    FloatingActionButton newFab;
+
+    @OnClick(R.id.test_button)
+    public void testButtonPress()
+    {
+        formPresenter.onTestButtonPress();
+    }
+
 
     private Unbinder unbinder;
 
@@ -232,6 +242,11 @@ public class FormFragment extends BaseFragment implements FormView {
     @Override
     public void displaySuccess() {
         showToastMessage("Form submitted");
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        showToastMessage(message);
     }
 
     @Override
