@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import li.brianv.domain.Form;
 import li.brianv.domain.interactor.DefaultObserver;
-import li.brianv.domain.interactor.GetTestMessage;
+import li.brianv.domain.interactor.GetUserLocation;
 import li.brianv.domain.interactor.SubmitForm;
 import li.brianv.rescueme.di.PerActivity;
 import li.brianv.rescueme.util.Log;
@@ -49,13 +49,13 @@ public class FormPresenter implements Presenter {
     private boolean fieldsFilled = false;
 
     private final SubmitForm submitForm;
-    private final GetTestMessage getTestMessage;
+    private final GetUserLocation getUserLocation;
 
 
     @Inject
-    FormPresenter(SubmitForm submitForm, GetTestMessage getTestMessage) {
+    FormPresenter(SubmitForm submitForm, GetUserLocation getUserLocation) {
         this.submitForm = submitForm;
-        this.getTestMessage = getTestMessage;
+        this.getUserLocation = getUserLocation;
     }
 
     public void updateReporterName(String reporterName) {
@@ -126,8 +126,8 @@ public class FormPresenter implements Presenter {
                         reportedEmail, reportedAddress + " " + reportedCity + " " + reportedState)));
     }
 
-    public void onTestButtonPress(){
-        getTestMessage.execute(new TestObserver(), null);
+    public void onCurrentLocationButtonPress(){
+        getUserLocation.execute(new LocationObserver(), null);
 
     }
 
@@ -185,10 +185,10 @@ public class FormPresenter implements Presenter {
         }
     }
 
-    public class TestObserver extends DefaultObserver<String>{
+    public class LocationObserver extends DefaultObserver<String>{
         @Override
         public void onNext(String s) {
-            formView.displayMessage(s);
+            formView.displayUserLocation(s);
 
         }
     }

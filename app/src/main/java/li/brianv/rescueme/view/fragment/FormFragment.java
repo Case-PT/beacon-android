@@ -56,8 +56,8 @@ public class FormFragment extends BaseFragment implements FormView {
     FloatingActionButton fab;
     @BindView(R.id.confirmFab)
     FloatingActionButton confirmFab;
-    @BindView(R.id.testButton)
-    FloatingActionButton testButton;
+    @BindView(R.id.userLocationButton)
+    FloatingActionButton userLocationButton;
 
     private Unbinder unbinder;
 
@@ -71,9 +71,9 @@ public class FormFragment extends BaseFragment implements FormView {
         formPresenter.onConfirmPress();
     }
 
-    @OnClick(R.id.testButton)
-    public void testButtonPress() {
-        displaySuccess();
+    @OnClick(R.id.userLocationButton)
+    public void onCurrentLocationButtonPress() {
+        formPresenter.onCurrentLocationButtonPress();
     }
 
     @Override
@@ -247,7 +247,7 @@ public class FormFragment extends BaseFragment implements FormView {
     }
 
     @Override
-    public void displayMessage(String message) {
+    public void displayUserLocation(String message) {
         showToastMessage(message);
 
     }

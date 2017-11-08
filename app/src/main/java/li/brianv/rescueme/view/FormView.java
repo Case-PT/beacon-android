@@ -23,5 +23,5 @@ public interface FormView {
 
     void displaySubmitFormFailure();
 
-    void displayMessage(String message);
+    void displayUserLocation(String message);
 }
