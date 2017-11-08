@@ -19,9 +19,11 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import li.brianv.data.repository.MapDataRepository;
 import li.brianv.domain.Form;
 import li.brianv.domain.interactor.DefaultObserver;
-import li.brianv.domain.interactor.GetTestMessage;
+import li.brianv.domain.interactor.GetLocationMessage;
+import li.brianv.domain.interactor.GetLocationMessage;
 import li.brianv.domain.interactor.SubmitForm;
 import li.brianv.rescueme.di.PerActivity;
 import li.brianv.rescueme.util.Log;
@@ -49,12 +51,12 @@ public class FormPresenter implements Presenter {
     private boolean fieldsFilled = false;
 
     private final SubmitForm submitForm;
-    private final GetTestMessage getTestMessage;
+    private final GetLocationMessage locationMessage;
 
     @Inject
-    FormPresenter(SubmitForm submitForm, GetTestMessage testMessage) {
+    FormPresenter(SubmitForm submitForm, GetLocationMessage locationMessage) {
         this.submitForm = submitForm;
-        this.getTestMessage = testMessage;
+        this.locationMessage = locationMessage;
     }
 
 
@@ -129,7 +131,7 @@ public class FormPresenter implements Presenter {
 
     public void onTestButtonPress()
     {
-        getTestMessage.execute(new TestObserver(), null);
+        locationMessage.execute(new TestObserver(), null);
     }
 
     private void onFieldUpdated() {
@@ -190,7 +192,8 @@ public class FormPresenter implements Presenter {
     {
         @Override
         public void onNext(String s) {
-            formView.displayMessage("");
+
+            formView.displayMessage(s);
         }
     }
 }
