@@ -1,6 +1,7 @@
 package li.brianv.domain.interactor;
 
 import javax.inject.Inject;
+import javax.xml.stream.XMLReporter;
 
 import io.reactivex.Observable;
 import li.brianv.domain.Form;
@@ -11,11 +12,14 @@ import li.brianv.domain.repository.FormRepository;
 public class SubmitForm extends UseCase<Object, SubmitForm.Params> {
 
     private final FormRepository formRepository;
+    private Report report;
 
     @Inject
     SubmitForm(FormRepository formRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.formRepository = formRepository;
+        this.report = report;
+
     }
 
     @Override
