@@ -25,7 +25,7 @@ public class GetLocationMessage extends UseCase<String, Void> {
                     public String apply(Long aLong) throws Exception {
 
                         return
-                                 "22.8781, 87.6298";
+                                 "22.8791, 87.6298";
                     }
                 });
     }
