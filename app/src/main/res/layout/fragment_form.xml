@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/transparent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparentBlack"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <li.brianv.rescueme.ui.RobotoTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="File a Report"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="605dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <li.brianv.rescueme.ui.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Reporter information"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reporterName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_name"
+                                android:inputType="textPersonName" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reporterNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_number"
+                                android:inputType="phone" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reporterEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_email"
+                                android:inputType="textEmailAddress" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                </ScrollView>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@android:color/darker_gray" />
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <li.brianv.rescueme.ui.RobotoTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Missing person information"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_name"
+                                android:inputType="textPersonName" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_number"
+                                android:inputType="phone" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_email"
+                                android:inputType="textEmailAddress" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_address"
+                                android:inputType="textPostalAddress" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_city"
+                                android:inputType="textPostalAddress" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="@dimen/edit_text_width"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/reportedState"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/form_state"
+                                android:inputType="textPostalAddress" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_white_24dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/confirmFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/materialGreen"
+            android:src="@drawable/ic_check_white_24dp"
+            android:visibility="gone" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/test_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_location_on_black_24dp" />
+
+    </LinearLayout>
+</FrameLayout>
