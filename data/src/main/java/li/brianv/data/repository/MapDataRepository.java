@@ -1,5 +1,6 @@
 package li.brianv.data.repository;
 
+<<<<<<< HEAD
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +11,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Task;
 
+=======
+>>>>>>> c6a1731d13133f587b3d7bd83b14cd824b719dc4
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +26,7 @@ import li.brianv.domain.repository.MapRepository;
 
 public class MapDataRepository implements MapRepository {
 
+<<<<<<< HEAD
 
     private FusedLocationProviderClient mFusedLocationClient;
     Context aContext;
@@ -50,6 +54,11 @@ public class MapDataRepository implements MapRepository {
                 loc.addOnSuccessListener((Activity) aContext, location -> userLocation = loc.getResult());
 
         return userLocation;
+=======
+    @Inject
+    MapDataRepository() {
+
+>>>>>>> c6a1731d13133f587b3d7bd83b14cd824b719dc4
     }
 
     @Override
@@ -58,8 +67,15 @@ public class MapDataRepository implements MapRepository {
                 .map(intVal -> {
                     if(intVal < 100) {
                         List<Location> list = new ArrayList<>();
+<<<<<<< HEAD
                         android.location.Location loc = getUserLocation();
                         list.add(generateLocation(loc.getLatitude(), loc.getLongitude()));
+=======
+                        list.add(generateLocation(29.9604, -95.7698));
+                        list.add(generateLocation(28.5383, -81.3792));
+                        list.add(generateLocation(26.1524, -80.5373));
+                        list.add(generateLocation(22.8781, 87.6298));
+>>>>>>> c6a1731d13133f587b3d7bd83b14cd824b719dc4
                         return list;
                     } else
                         return Collections.emptyList();
