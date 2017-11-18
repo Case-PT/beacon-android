@@ -17,11 +17,12 @@ public interface FormView {
 
     void clearForm();
 
+
     boolean formIsShowing();
 
     void displaySuccess();
 
-    void displaySubmitFormFailure();
+    void displayMessage(String message);
 
-    void displayUserLocation(String message);
+    void displaySubmitFormFailure();
 }

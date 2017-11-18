@@ -229,11 +229,11 @@
             android:visibility="gone" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/userLocationButton"
+            android:id="@+id/test_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/materialGreen"
+            android:backgroundTint="@color/white"
             android:src="@drawable/ic_location_on_black_24dp" />
 
     </LinearLayout>

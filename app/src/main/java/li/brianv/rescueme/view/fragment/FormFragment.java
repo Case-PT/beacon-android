@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -56,8 +57,15 @@ public class FormFragment extends BaseFragment implements FormView {
     FloatingActionButton fab;
     @BindView(R.id.confirmFab)
     FloatingActionButton confirmFab;
-    @BindView(R.id.userLocationButton)
-    FloatingActionButton userLocationButton;
+    @BindView(R.id.test_button)
+    FloatingActionButton newFab;
+
+    @OnClick(R.id.test_button)
+    public void testButtonPress()
+    {
+        formPresenter.onTestButtonPress();
+    }
+
 
     private Unbinder unbinder;
 
@@ -69,11 +77,6 @@ public class FormFragment extends BaseFragment implements FormView {
     @OnClick(R.id.confirmFab)
     public void confirmPress() {
         formPresenter.onConfirmPress();
-    }
-
-    @OnClick(R.id.userLocationButton)
-    public void onCurrentLocationButtonPress() {
-        formPresenter.onCurrentLocationButtonPress();
     }
 
     @Override
@@ -242,13 +245,12 @@ public class FormFragment extends BaseFragment implements FormView {
     }
 
     @Override
-    public void displaySubmitFormFailure() {
-        showToastMessage("Error submitting form");
+    public void displayMessage(String message) {
+        showToastMessage(message);
     }
 
     @Override
-    public void displayUserLocation(String message) {
-        showToastMessage(message);
-
+    public void displaySubmitFormFailure() {
+        showToastMessage("Error submitting form");
     }
 }

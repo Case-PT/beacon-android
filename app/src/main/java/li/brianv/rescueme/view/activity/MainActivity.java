@@ -27,6 +27,8 @@ import li.brianv.rescueme.view.fragment.MapFragment;
 public class MainActivity extends BaseActivity implements HasComponent<MainComponent>, NavigationView.OnNavigationItemSelectedListener {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
+    //private FusedLocationProviderClient mFusedLocationClient;
+
     @BindView(R.id.main_toolbar)
     Toolbar mainToolbar;
 
@@ -51,7 +53,21 @@ public class MainActivity extends BaseActivity implements HasComponent<MainCompo
 
         setupToolbar();
 
-        // Setup menu navigation with toolbar (This constructor will use the onOptionsItemSelected() method for onClicks()
+        /*mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                        }
+                    }
+                });*/
+
+
+
+    // Setup menu navigation with toolbar (This constructor will use the onOptionsItemSelected() method for onClicks()
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.app_name, R.string.app_name) {
 
             @Override
