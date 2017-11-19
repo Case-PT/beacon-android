@@ -13,7 +13,7 @@ public class SubmitForm extends UseCase<Object, SubmitForm.Params> {
 
     private final FormRepository formRepository;
     private Report report;
-
+  
     @Inject
     SubmitForm(FormRepository formRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, Report report) {
         super(threadExecutor, postExecutionThread);
