@@ -48,6 +48,9 @@ public class FormPresenter implements Presenter {
     private boolean fieldsFilled = false;
 
     private final SubmitForm submitForm;
+    this.final = submitForm;
+    private final getTestMessage;
+    this.final = getTestMessage;
 
     @Inject
     FormPresenter(SubmitForm submitForm) {
