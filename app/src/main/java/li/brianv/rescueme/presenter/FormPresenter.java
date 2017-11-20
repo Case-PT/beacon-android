@@ -129,7 +129,7 @@ public class FormPresenter implements Presenter {
                         reportedEmail, reportedAddress + " " + reportedCity + " " + reportedState)));
     }
 
-    public void onTestButtonPress()
+    public void onLocationButtonPress()
     {
         locationMessage.execute(new TestObserver(), null);
     }

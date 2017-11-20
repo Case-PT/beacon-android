@@ -1,20 +1,22 @@
 package li.brianv.domain.interactor;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import li.brianv.domain.Location;
 import li.brianv.domain.executor.PostExecutionThread;
 import li.brianv.domain.executor.ThreadExecutor;
 import li.brianv.domain.repository.MapRepository;
 
 public class GetLocationMessage extends UseCase<String, Void> {
+
+    private final MapRepository mapRepository;
+
     @Inject
-    GetLocationMessage(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    GetLocationMessage(MapRepository mapRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
+        this.mapRepository = mapRepository;
     }
 
     @Override
@@ -23,9 +25,7 @@ public class GetLocationMessage extends UseCase<String, Void> {
                 new io.reactivex.functions.Function<Long, String>() {
                     @Override
                     public String apply(Long aLong) throws Exception {
-
-                        return
-                                 "22.8791, 87.6298";
+                        return mapRepository.getUserLocation();
                     }
                 });
     }

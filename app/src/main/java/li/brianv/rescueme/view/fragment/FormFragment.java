@@ -57,13 +57,13 @@ public class FormFragment extends BaseFragment implements FormView {
     FloatingActionButton fab;
     @BindView(R.id.confirmFab)
     FloatingActionButton confirmFab;
-    @BindView(R.id.test_button)
+    @BindView(R.id.location_button)
     FloatingActionButton newFab;
 
-    @OnClick(R.id.test_button)
-    public void testButtonPress()
+    @OnClick(R.id.location_button)
+    public void locationButtonPress()
     {
-        formPresenter.onTestButtonPress();
+        formPresenter.onLocationButtonPress();
     }
 
 

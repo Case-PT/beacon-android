@@ -5,12 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import li.brianv.domain.Location;
+import li.brianv.domain.MyLocation;
 import li.brianv.domain.executor.PostExecutionThread;
 import li.brianv.domain.executor.ThreadExecutor;
 import li.brianv.domain.repository.MapRepository;
 
-public class GetRescueLocations extends UseCase<List<Location>, Void> {
+public class GetRescueLocations extends UseCase<List<MyLocation>, Void> {
 
     private final MapRepository mapRepository;
 
@@ -21,7 +21,7 @@ public class GetRescueLocations extends UseCase<List<Location>, Void> {
     }
 
     @Override
-    Observable<List<Location>> buildUseCaseObservable(Void aVoid) {
+    Observable<List<MyLocation>> buildUseCaseObservable(Void aVoid) {
         return mapRepository.rescueLocations();
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import li.brianv.domain.Location;
+import li.brianv.domain.MyLocation;
 import li.brianv.domain.interactor.DefaultObserver;
 import li.brianv.domain.interactor.GetRescueLocations;
 import li.brianv.rescueme.mapper.LatLngMapper;
@@ -42,9 +42,9 @@ public class MapPresenter implements Presenter {
         this.mapView = null;
     }
 
-    private class RescueLocationObserver extends DefaultObserver<List<Location>> {
+    private class RescueLocationObserver extends DefaultObserver<List<MyLocation>> {
         @Override
-        public void onNext(List<Location> locations) {
+        public void onNext(List<MyLocation> locations) {
             mapView.updateHeatMap(Stream.of(locations)
                     .map(LatLngMapper::getLatLang)
                     .toList());
