@@ -53,8 +53,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
+<<<<<<< HEAD
+=======
     compile 'com.android.support:appcompat-v7:25.3.1'
+>>>>>>> c6a1731d13133f587b3d7bd83b14cd824b719dc4
 
     testCompile testDependencies.junit
     testCompile testDependencies.assertj
@@ -64,7 +66,10 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+<<<<<<< HEAD
     compile 'com.google.android.gms:play-services-places:11.0.4'
     compile 'com.google.android.gms:play-services:11.0.4'
 
+=======
+>>>>>>> c6a1731d13133f587b3d7bd83b14cd824b719dc4
 }

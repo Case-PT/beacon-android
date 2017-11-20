@@ -17,9 +17,12 @@ public interface FormView {
 
     void clearForm();
 
+
     boolean formIsShowing();
 
     void displaySuccess();
+
+    void displayMessage(String message);
 
     void displaySubmitFormFailure();
 }

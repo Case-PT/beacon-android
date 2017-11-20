@@ -19,7 +19,6 @@ sourceSets {
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
     def domainTestDependencies = rootProject.ext.domainTestDependencies
-
     provided domainDependencies.javaxAnnotation
 
     compile domainDependencies.javaxInject
