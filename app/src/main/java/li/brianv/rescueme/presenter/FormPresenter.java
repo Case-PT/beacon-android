@@ -192,7 +192,7 @@ public class FormPresenter implements Presenter {
     {
         @Override
         public void onNext(String s) {
-
+            Log.d("LOCATE", "location: " + s);
             formView.displayMessage(s);
         }
     }

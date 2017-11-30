@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
@@ -28,29 +31,54 @@ public class MapDataRepository implements MapRepository {
     private FusedLocationProviderClient mFusedLocationClient;
     Context aContext;
     android.location.Location userLocation;
+    Task<Location> loc;
 
     @Inject
     MapDataRepository(Context context) {
         aContext = context;
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(aContext);
+
+        if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                Log.d("HELP", "access fine location permission not granted!");
+            if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                Log.d("HELP", "access coarse location permission not granted!");
+        }
+        loc = mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    userLocation = task.getResult();
+                } else {
+                    Log.d("LOCATE", "Failed to get location.");
+                }
+            }
+        });
     }
 
     public String getUserLocation() {
 
-        if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return null;
-        }
+        Log.d("LOCATE", "permission granted!");
 
-        Task<Location> loc = mFusedLocationClient.getLastLocation();
-        loc.addOnSuccessListener((Activity) aContext, location -> userLocation = loc.getResult());
-        String coordinates = (loc.getResult().getLatitude() + ", " + loc.getResult().getLongitude());
+        if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                Log.d("HELP", "access fine location permission not granted!");
+            if (ActivityCompat.checkSelfPermission(aContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                Log.d("HELP", "access coarse location permission not granted!");
+        }
+        Task<Location> loc = mFusedLocationClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if (task.isSuccessful() && task.getResult() != null) {
+                    userLocation = task.getResult();
+                } else {
+                    Log.d("LOCATE", "Failed to get location.");
+                }
+            }
+        });
+
+        String coordinates = (userLocation.getLatitude() + ", " + userLocation.getLongitude());
+        Log.d("LOCATE", "Coordinates: " + coordinates);
         return coordinates;
 
     }
